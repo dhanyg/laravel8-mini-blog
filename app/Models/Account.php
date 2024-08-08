@@ -9,6 +9,9 @@ class Account extends Model
 {
     use HasFactory;
     public $timestamps = false;
+    public $incrementing = false;
+    protected $primaryKey = 'username';
+    protected $keyType = 'string';
     protected $table = 'account';
     protected $fillable = [
         'username',
@@ -19,8 +22,8 @@ class Account extends Model
 
     protected $hidden = ['password'];
 
-    public function getRouteKeyName()
-    {
-        return 'username';
-    }
+    // public function getRouteKeyName()
+    // {
+    //     return 'username';
+    // }
 }

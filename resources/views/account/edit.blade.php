@@ -4,6 +4,21 @@
 
 @section('content')
     <section class="container">
+        <nav aria-label="breadcrumb" class="mt-3">
+            <ol class="breadcrumb px-3 py-2 bg-light rounded">
+                <li class="breadcrumb-item">
+                    <a href="{{ route('home') }}">Beranda</a>
+                </li>
+                <li class="breadcrumb-item">
+                    <a href="{{ route('account.index') }}">Accounts</a>
+                </li>
+                <li class="breadcrumb-item">
+                    <a href="{{ route('account.show', $account->username) }}">{{ $account->name }}</a>
+                </li>
+                <li class="breadcrumb-item active" aria-current="page">Update</li>
+            </ol>
+        </nav>
+
         <h1 class="my-3">Update Account: {{ $account->username }}</h1>
 
         <form action="{{ route('account.update', $account->username) }}" method="POST">
