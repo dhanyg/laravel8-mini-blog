@@ -5,17 +5,24 @@ namespace App\Http\Controllers;
 use App\Models\Account;
 use Illuminate\Support\Facades\Hash;
 use App\Http\Requests\AccountRequest;
+use Illuminate\Http\Request;
 
 class AccountController extends Controller
 {
     /**
      * Display a listing of accounts.
      *
+     * @param \Illuminate\Http\Request $request
+     * 
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $accounts = Account::orderBy('username')->paginate(20);
+        if (!$request->query('sort')) {
+            $accounts = Account::orderBy('username')->paginate(15);
+        } else {
+            $accounts = Account::orderBy($request->query('by'), $request->query('sort'))->paginate(15);
+        }
         return view('account.index', compact('accounts'));
     }
 
