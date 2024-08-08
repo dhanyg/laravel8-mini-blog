@@ -16,12 +16,12 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('home');
-});
+})->name('home');
 
 Route::get('accounts', [AccountController::class, 'index'])->name('account.index');
 Route::get('accounts/create', [AccountController::class, 'create'])->name('account.create');
 Route::post('accounts/create', [AccountController::class, 'store'])->name('account.store');
-Route::get('account/{account}', [AccountController::class, 'show'])->name('account.show');
-Route::get('account/edit/{account}', [AccountController::class, 'edit'])->name('account.edit');
-Route::put('account/edit/{account}', [AccountController::class, 'update'])->name('account.update');
-Route::delete('account/{account}', [AccountController::class, 'destroy'])->name('account.destroy');
+Route::get('accounts/{account}', [AccountController::class, 'show'])->name('account.show');
+Route::get('accounts/{account}/edit', [AccountController::class, 'edit'])->name('account.edit');
+Route::put('accounts/{account}/edit', [AccountController::class, 'update'])->name('account.update');
+Route::delete('accounts/{account}', [AccountController::class, 'destroy'])->name('account.destroy');

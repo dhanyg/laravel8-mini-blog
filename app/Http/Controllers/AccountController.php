@@ -9,7 +9,7 @@ use App\Http\Requests\AccountRequest;
 class AccountController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Display a listing of accounts.
      *
      * @return \Illuminate\Http\Response
      */
@@ -20,7 +20,7 @@ class AccountController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Show the form for creating a new account.
      *
      * @return \Illuminate\Http\Response
      */
@@ -30,7 +30,7 @@ class AccountController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Store a newly created account in storage.
      *
      * @param  \App\Http\Requests\AccountRequest  $request
      * @return \Illuminate\Http\Response
@@ -43,7 +43,7 @@ class AccountController extends Controller
     }
 
     /**
-     * Display the specified resource.
+     * Display the specified account.
      *
      * @param  \App\Models\Account  $account
      * @return \Illuminate\Http\Response
@@ -54,7 +54,7 @@ class AccountController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
+     * Show the form for editing the specified account.
      *
      * @param  \App\Models\Account  $account
      * @return \Illuminate\Http\Response
@@ -68,10 +68,10 @@ class AccountController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \App\Http\Requests\AccountRequest  $request
-     * @param  string  $username
+     * @param  \App\Models\Account $account
      * @return \Illuminate\Http\Response
      */
-    public function update(AccountRequest $request, string $username)
+    public function update(AccountRequest $request, Account $account)
     {
         $data = $request->validated();
         if ($data['password'] != null) {
@@ -80,19 +80,20 @@ class AccountController extends Controller
             unset($data['password']);
         }
 
-        Account::where('username', $username)->update($data);
+        $account->update($data);
+
         return redirect()->route('account.index')->with('success', 'Account was updated successfully.');
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Remove the specified account from storage.
      *
-     * @param  string $username
+     * @param  \App\Models\Account $account
      * @return \Illuminate\Http\Response
      */
-    public function destroy(string $username)
+    public function destroy(Account $account)
     {
-        Account::where('username', $username)->delete();
+        $account->delete();
         return redirect()->route('account.index')->with('success', 'Account was deleted successfully.');
     }
 }

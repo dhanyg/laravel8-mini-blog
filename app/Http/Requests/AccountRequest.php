@@ -25,15 +25,6 @@ class AccountRequest extends FormRequest
     public function rules()
     {
         $password = ['required', 'min:4'];
-        switch ($this->method()) {
-            case 'POST':
-                break;
-            case 'PUT':
-                if ($this->password == null) {
-                    $password = ['nullable'];
-                }
-                break;
-        }
         $rules = [
             'username' => ['required', 'string', 'max:20', 'unique:account'],
             'password' => $password,
@@ -42,6 +33,9 @@ class AccountRequest extends FormRequest
         ];
 
         if ($this->method() == 'PUT') {
+            if ($this->password == null) {
+                $rules['password'] = ['nullable'];
+            }
             $rules['username'] = ['required'];
         }
 
