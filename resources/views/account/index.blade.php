@@ -31,9 +31,39 @@
                 <thead>
                     <tr>
                         <th scope="col">#</th>
-                        <th scope="col">Username</th>
-                        <th scope="col">Name</th>
-                        <th scope="col">Role</th>
+                        <th scope="col">
+                            @if (request()->query('sort'))
+                                @if (request()->query('sort') == 'desc')
+                                    <a href="{{ route('account.index') . '?sort=asc&by=username' }}">Username</a>
+                                @else
+                                    <a href="{{ route('account.index') . '?sort=desc&by=username' }}">Username</a>
+                                @endif
+                            @else
+                                <a href="{{ route('account.index') . '?sort=asc&by=username' }}">Username</a>
+                            @endif
+                        </th>
+                        <th scope="col">
+                            @if (request()->query('sort'))
+                                @if (request()->query('sort') == 'desc')
+                                    <a href="{{ route('account.index') . '?sort=asc&by=name' }}">Name</a>
+                                @else
+                                    <a href="{{ route('account.index') . '?sort=desc&by=name' }}">Name</a>
+                                @endif
+                            @else
+                                <a href="{{ route('account.index') . '?sort=asc&by=name' }}">Name</a>
+                            @endif
+                        </th>
+                        <th scope="col">
+                            @if (request()->query('sort'))
+                                @if (request()->query('sort') == 'desc')
+                                    <a href="{{ route('account.index') . '?sort=asc&by=role' }}">Role</a>
+                                @else
+                                    <a href="{{ route('account.index') . '?sort=desc&by=role' }}">Role</a>
+                                @endif
+                            @else
+                                <a href="{{ route('account.index') . '?sort=asc&by=role' }}">Role</a>
+                            @endif
+                        </th>
                         <th scope="col"></th>
                     </tr>
                 </thead>
@@ -62,6 +92,11 @@
                     @endforeach
                 </tbody>
             </table>
+            @if (!empty($accounts))
+                <div class="mt-3 d-flex justify-content-center">
+                    {{ $accounts->links() }}
+                </div>
+            @endif
         </div>
     </section>
 @endsection
