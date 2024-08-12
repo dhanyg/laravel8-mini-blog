@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\AccountController;
+use App\Http\Controllers\AuthController;
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PostController;
 use Illuminate\Support\Facades\Route;
 
@@ -15,9 +17,15 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('home');
-})->name('home');
+Route::redirect('/', 'home');
 
-Route::resource('accounts', AccountController::class);
-Route::resource('posts', PostController::class);
+Route::get('auth/login', [AuthController::class, 'index'])->name('login');
+Route::post('auth/login', [AuthController::class, 'login'])->name('auth.login');
+Route::post('auth/logout', [AuthController::class, 'logout'])->name('auth.logout');
+
+Route::middleware('auth')->group(function () {
+    Route::get('home', HomeController::class)->name('home');
+
+    Route::resource('posts', PostController::class);
+    Route::resource('accounts', AccountController::class);
+});
