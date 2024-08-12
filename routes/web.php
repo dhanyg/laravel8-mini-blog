@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AccountController;
+use App\Http\Controllers\PostController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -18,10 +19,5 @@ Route::get('/', function () {
     return view('home');
 })->name('home');
 
-Route::get('accounts', [AccountController::class, 'index'])->name('account.index');
-Route::get('accounts/create', [AccountController::class, 'create'])->name('account.create');
-Route::post('accounts/create', [AccountController::class, 'store'])->name('account.store');
-Route::get('accounts/{account}', [AccountController::class, 'show'])->name('account.show');
-Route::get('accounts/{account}/edit', [AccountController::class, 'edit'])->name('account.edit');
-Route::put('accounts/{account}/edit', [AccountController::class, 'update'])->name('account.update');
-Route::delete('accounts/{account}', [AccountController::class, 'destroy'])->name('account.destroy');
+Route::resource('accounts', AccountController::class);
+Route::resource('posts', PostController::class);
