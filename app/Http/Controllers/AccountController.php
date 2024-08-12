@@ -47,8 +47,9 @@ class AccountController extends Controller
     public function store(AccountRequest $request)
     {
         $data = $request->validated();
+        $data['password'] = Hash::make($data['password']);
         Account::create($data);
-        return redirect()->route('account.index')->with('success', 'Account was created successfully.');
+        return redirect()->route('accounts.index')->with('success', 'Account was created successfully.');
     }
 
     /**
@@ -91,7 +92,7 @@ class AccountController extends Controller
 
         $account->update($data);
 
-        return redirect()->route('account.index')->with('success', 'Account was updated successfully.');
+        return redirect()->route('accounts.index')->with('success', 'Account was updated successfully.');
     }
 
     /**
@@ -103,6 +104,6 @@ class AccountController extends Controller
     public function destroy(Account $account)
     {
         $account->delete();
-        return redirect()->route('account.index')->with('success', 'Account was deleted successfully.');
+        return redirect()->route('accounts.index')->with('success', 'Account was deleted successfully.');
     }
 }
