@@ -10,7 +10,7 @@
                     <a href="{{ route('home') }}">Beranda</a>
                 </li>
                 <li class="breadcrumb-item">
-                    <a href="{{ route('account.index') }}">Accounts</a>
+                    <a href="{{ route('accounts.index') }}">Accounts</a>
                 </li>
                 <li class="breadcrumb-item active" aria-current="page">{{ $account->name }}</li>
             </ol>
@@ -19,10 +19,10 @@
         <h1 class="my-3">Author</h1>
 
         <div>
-            <a href="{{ route('account.edit', $account->username) }}" class="btn btn-primary">Update</a>
+            <a href="{{ route('accounts.edit', $account->username) }}" class="btn btn-primary">Update</a>
             <a href="#" class="btn btn-danger"
                 onclick="event.preventDefault(); return confirm('Are you sure to delete this user?') ? document.getElementById('delete-{{ $account->username }}').submit() : false;">Delete</a>
-            <form id="delete-{{ $account->username }}" action="{{ route('account.destroy', $account->username) }}"
+            <form id="delete-{{ $account->username }}" action="{{ route('accounts.destroy', $account->username) }}"
                 method="POST" class="d-none">
                 @csrf
                 @method('delete')

@@ -10,7 +10,7 @@
                     <a href="{{ route('home') }}">Beranda</a>
                 </li>
                 <li class="breadcrumb-item">
-                    <a href="{{ route('account.index') }}">Accounts</a>
+                    <a href="{{ route('accounts.index') }}">Accounts</a>
                 </li>
                 <li class="breadcrumb-item active" aria-current="page">Create Account</li>
             </ol>
@@ -18,7 +18,7 @@
 
         <h1 class="my-3">Create Account</h1>
 
-        <form action="{{ route('account.store') }}" method="POST">
+        <form action="{{ route('accounts.store') }}" method="POST">
             @csrf
             <div class="mb-3">
                 <label for="username" class="form-label">Username</label>

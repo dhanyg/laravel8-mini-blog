@@ -21,81 +21,82 @@
         </nav>
 
         <h1 class="my-3">Accounts</h1>
-        <a href="{{ route('account.create') }}" class="btn btn-success">Create Account</a>
+        <a href="{{ route('accounts.create') }}" class="btn btn-success">Create Account</a>
 
         <div class="mt-3">
             @if (count($accounts) < 1)
                 <p>No accounts.</p>
-            @endif
-            <table class="table table-bordered table-striped">
-                <thead>
-                    <tr>
-                        <th scope="col">#</th>
-                        <th scope="col">
-                            @if (request()->query('sort'))
-                                @if (request()->query('sort') == 'desc')
-                                    <a href="{{ route('account.index') . '?sort=asc&by=username' }}">Username</a>
-                                @else
-                                    <a href="{{ route('account.index') . '?sort=desc&by=username' }}">Username</a>
-                                @endif
-                            @else
-                                <a href="{{ route('account.index') . '?sort=asc&by=username' }}">Username</a>
-                            @endif
-                        </th>
-                        <th scope="col">
-                            @if (request()->query('sort'))
-                                @if (request()->query('sort') == 'desc')
-                                    <a href="{{ route('account.index') . '?sort=asc&by=name' }}">Name</a>
-                                @else
-                                    <a href="{{ route('account.index') . '?sort=desc&by=name' }}">Name</a>
-                                @endif
-                            @else
-                                <a href="{{ route('account.index') . '?sort=asc&by=name' }}">Name</a>
-                            @endif
-                        </th>
-                        <th scope="col">
-                            @if (request()->query('sort'))
-                                @if (request()->query('sort') == 'desc')
-                                    <a href="{{ route('account.index') . '?sort=asc&by=role' }}">Role</a>
-                                @else
-                                    <a href="{{ route('account.index') . '?sort=desc&by=role' }}">Role</a>
-                                @endif
-                            @else
-                                <a href="{{ route('account.index') . '?sort=asc&by=role' }}">Role</a>
-                            @endif
-                        </th>
-                        <th scope="col"></th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach ($accounts as $key => $account)
+            @else
+                <table class="table table-bordered table-striped">
+                    <thead>
                         <tr>
-                            <th scope="row">{{ $key + $accounts->firstItem() }}</th>
-                            <td>{{ $account->username }}</td>
-                            <td>{{ $account->name }}</td>
-                            <td>{{ ucfirst($account->role) }}</td>
-                            <td>
-                                <a href="{{ route('account.show', $account->username) }}">Detail</a>
-                                <span>|</span>
-                                <a href="{{ route('account.edit', $account->username) }}">Edit</a>
-                                <span>|</span>
-                                <a id="btn-delete" href="{{ route('account.destroy', $account->username) }}"
-                                    onclick="event.preventDefault(); return confirm('Are you sure to delete this user?') ? document.getElementById('delete-account-{{ $account->username }}').submit() : false;">Delete</a>
-                                <form id="delete-account-{{ $account->username }}"
-                                    action="{{ route('account.destroy', $account->username) }}" method="POST"
-                                    class="d-none">
-                                    @csrf
-                                    @method('delete')
-                                </form>
-                            </td>
+                            <th scope="col">#</th>
+                            <th scope="col">
+                                @if (request()->query('sort'))
+                                    @if (request()->query('sort') == 'desc')
+                                        <a href="{{ route('accounts.index') . '?sort=asc&by=username' }}">Username</a>
+                                    @else
+                                        <a href="{{ route('accounts.index') . '?sort=desc&by=username' }}">Username</a>
+                                    @endif
+                                @else
+                                    <a href="{{ route('accounts.index') . '?sort=asc&by=username' }}">Username</a>
+                                @endif
+                            </th>
+                            <th scope="col">
+                                @if (request()->query('sort'))
+                                    @if (request()->query('sort') == 'desc')
+                                        <a href="{{ route('accounts.index') . '?sort=asc&by=name' }}">Name</a>
+                                    @else
+                                        <a href="{{ route('accounts.index') . '?sort=desc&by=name' }}">Name</a>
+                                    @endif
+                                @else
+                                    <a href="{{ route('accounts.index') . '?sort=asc&by=name' }}">Name</a>
+                                @endif
+                            </th>
+                            <th scope="col">
+                                @if (request()->query('sort'))
+                                    @if (request()->query('sort') == 'desc')
+                                        <a href="{{ route('accounts.index') . '?sort=asc&by=role' }}">Role</a>
+                                    @else
+                                        <a href="{{ route('accounts.index') . '?sort=desc&by=role' }}">Role</a>
+                                    @endif
+                                @else
+                                    <a href="{{ route('accounts.index') . '?sort=asc&by=role' }}">Role</a>
+                                @endif
+                            </th>
+                            <th scope="col"></th>
                         </tr>
-                    @endforeach
-                </tbody>
-            </table>
-            @if (!empty($accounts))
-                <div class="mt-3 d-flex justify-content-center">
-                    {{ $accounts->links() }}
-                </div>
+                    </thead>
+                    <tbody>
+                        @foreach ($accounts as $key => $account)
+                            <tr>
+                                <th scope="row">{{ $key + $accounts->firstItem() }}</th>
+                                <td>{{ $account->username }}</td>
+                                <td>{{ $account->name }}</td>
+                                <td>{{ ucfirst($account->role) }}</td>
+                                <td>
+                                    <a href="{{ route('accounts.show', $account->username) }}">Detail</a>
+                                    <span>|</span>
+                                    <a href="{{ route('accounts.edit', $account->username) }}">Edit</a>
+                                    <span>|</span>
+                                    <a id="btn-delete" href="{{ route('accounts.destroy', $account->username) }}"
+                                        onclick="event.preventDefault(); return confirm('Are you sure to delete this user?') ? document.getElementById('delete-account-{{ $account->username }}').submit() : false;">Delete</a>
+                                    <form id="delete-account-{{ $account->username }}"
+                                        action="{{ route('accounts.destroy', $account->username) }}" method="POST"
+                                        class="d-none">
+                                        @csrf
+                                        @method('delete')
+                                    </form>
+                                </td>
+                            </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+                @if (!empty($accounts))
+                    <div class="mt-3 d-flex justify-content-center">
+                        {{ $accounts->links() }}
+                    </div>
+                @endif
             @endif
         </div>
     </section>

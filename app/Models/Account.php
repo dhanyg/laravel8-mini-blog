@@ -21,9 +21,4 @@ class Account extends Model
     ];
 
     protected $hidden = ['password'];
-
-    // public function getRouteKeyName()
-    // {
-    //     return 'username';
-    // }
 }

@@ -21,7 +21,9 @@ class AccountController extends Controller
         if (!$request->query('sort')) {
             $accounts = Account::orderBy('username')->paginate(15);
         } else {
-            $accounts = Account::orderBy($request->query('by'), $request->query('sort'))->paginate(15);
+            $accounts = Account::orderBy($request->query('by'), $request->query('sort'))
+                ->paginate(15)
+                ->withQueryString();
         }
         return view('account.index', compact('accounts'));
     }
