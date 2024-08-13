@@ -29,7 +29,7 @@
     <main class="d-flex flex-column">
         <nav class="navbar navbar-expand-lg bg-dark navbar-dark">
             <div class="container">
-                <a class="navbar-brand" href="#">My Application</a>
+                <a class="navbar-brand" href="{{ route('home') }}">My Application</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                     data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false"
                     aria-label="Toggle navigation">
@@ -37,10 +37,13 @@
                 </button>
                 <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
                     <div class="navbar-nav ms-auto">
-                        <a class="nav-link"href="{{ route('home') }}">Home</a>
-                        <a class="nav-link" href="{{ route('posts.index') }}">Post</a>
+                        <a class="nav-link {{ request()->is('home*') ? 'active' : '' }}"
+                            href="{{ route('home') }}">Home</a>
+                        <a class="nav-link {{ request()->is('posts*') ? 'active' : '' }}"
+                            href="{{ route('posts.index') }}">Post</a>
                         @if (auth()->user() && auth()->user()->role == 'admin')
-                            <a class="nav-link" href="{{ route('accounts.index') }}">Akun</a>
+                            <a class="nav-link {{ request()->is('accounts*') ? 'active' : '' }}"
+                                href="{{ route('accounts.index') }}">Akun</a>
                         @endif
                         @auth
                             <a class="nav-link" href="#"

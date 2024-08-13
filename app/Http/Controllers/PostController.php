@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\PostRequest;
 use App\Models\Post;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class PostController extends Controller
 {
@@ -43,9 +44,10 @@ class PostController extends Controller
      */
     public function store(PostRequest $request)
     {
+        $this->middleware('auth');
         $data = $request->validated();
         $data['date'] = date('Y-m-d H:i:s');
-        $data['username'] = 'yoga';
+        $data['username'] = Auth::user()->username;
 
         Post::create($data);
         return redirect()->route('posts.index')->with('success', 'Post was created successfully.');
@@ -82,9 +84,10 @@ class PostController extends Controller
      */
     public function update(PostRequest $request, Post $post)
     {
+        $this->middleware('auth');
         $data = $request->validated();
         $data['date'] = date('Y-m-d H:i:s');
-        $data['username'] = 'yoga';
+        $data['username'] = Auth::user()->username;
 
         $post->update($data);
         return redirect()->route('posts.index')->with('success', 'Post was updated successfully.');
