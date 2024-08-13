@@ -6,9 +6,29 @@ use App\Models\Account;
 use Illuminate\Support\Facades\Hash;
 use App\Http\Requests\AccountRequest;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class AccountController extends Controller
 {
+    public $user;
+
+    /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('auth');
+        $this->middleware(function ($request, $next) {
+            $this->user = Auth::user();
+            if ($this->user->username != 'admin') {
+                abort(403, 'Unauthorized action.');
+            }
+            return $next($request);
+        });
+    }
+
     /**
      * Display a listing of accounts.
      *
